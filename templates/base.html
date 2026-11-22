@@ -1,1 +1,25 @@
-<!-- Plantilla base de Nexus Academy -->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}El Oráculo de Nexus{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="stars"></div>
+<header class="top">
+<a href="/" class="brand">NEXUS <span>✦</span> ACADEMY</a>
+<div class="top-sub">EL ORÁCULO DE LOS CUATRO ELEMENTOS</div>
+</header>
+<main class="wrap">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash">{% for m in messages %}{{m}}{% endfor %}</div>
+{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer>✧ NEXUS ACADEMY · Donde cada esencia encuentra su elemento ✧</footer>
+</body>
+</html>
