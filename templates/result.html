@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Tu casa · Nexus Academy{% endblock %}{% block content %}
+<section class="panel result" style="--accent:{{info.color}}"><p class="eyebrow">EL VEREDICTO DEL ORÁCULO</p><div class="result-sigil">{{info.symbol}}</div><p class="lead"> {{name}}, tu esencia ha encontrado su lugar.</p><h1>CASA <em>{{house}}</em></h1><div class="element-tag">{{info.element}}</div><p class="motto">“{{info.motto}}”</p><p class="description">{{info.description}}</p>
+{% if already %}<p class="small">Este nombre ya realizó la selección. Se muestra el resultado registrado.</p>{% else %}<p class="welcome">¡Bienvenido a tu nueva casa!</p>{% endif %}
+<a class="button-link" href="{{url_for('restart')}}">VOLVER AL INICIO</a></section>{% endblock %}

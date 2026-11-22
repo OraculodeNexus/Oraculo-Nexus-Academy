@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}La selección · Nexus Academy{% endblock %}{% block content %}
+<section class="quiz-head"><p class="eyebrow">EL ORÁCULO TE OBSERVA</p><h1>La prueba de los elementos</h1><p>{{name}}, elige la respuesta que más se acerque a lo que harías. No lo pienses demasiado.</p><div class="progress"><span id="progressbar"></span></div><div class="counter"><span id="counter">Pregunta 1 de 15</span></div></section>
+<form method="post" id="quizform"><div class="panel question-panel">
+{% for q in questions %}{% set question_index = loop.index0 %}<fieldset class="question" {% if not loop.first %}hidden{% endif %} data-index="{{loop.index}}">
+<legend><span class="qnum">PREGUNTA {{ "%02d"|format(loop.index) }}</span>{{q[0]}}</legend><div class="choices">{% for label, house in q[1] %}<label class="choice"><input type="radio" name="q{{question_index}}" value="{{loop.index0}}" required><span>{{label}}</span></label>{% endfor %}</div>
+</fieldset>{% endfor %}
+<div class="nav"><button type="button" class="secondary" id="prev" disabled>← ANTERIOR</button><button type="button" id="next">SIGUIENTE →</button><button type="submit" id="finish" hidden>REVELAR MI CASA ✦</button></div></div></form>
+<script>
+const qs=[...document.querySelectorAll('.question')], bar=document.getElementById('progressbar'), counter=document.getElementById('counter');
+let current=0;
+function show(){qs.forEach((q,i)=>q.hidden=i!==current);document.getElementById('prev').disabled=current===0;document.getElementById('next').hidden=current===qs.length-1;document.getElementById('finish').hidden=current!==qs.length-1;bar.style.width=((current+1)/qs.length*100)+'%';counter.textContent=`Pregunta ${current+1} de ${qs.length}`;window.scrollTo({top:0,behavior:'smooth'});}
+document.getElementById('next').onclick=()=>{if(!qs[current].querySelector('input:checked')){alert('Elige una respuesta para continuar.');return;}current++;show();};
+document.getElementById('prev').onclick=()=>{current--;show();};
+document.getElementById('quizform').onsubmit=e=>{if(!qs[current].querySelector('input:checked')){e.preventDefault();alert('Elige una respuesta para continuar.');}};
+</script>{% endblock %}
